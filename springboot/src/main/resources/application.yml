@@ -13,11 +13,11 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: root
-    password: root
-    url: jdbc:mysql://localhost:3306/quan?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: ${DB_USER}
+    password: ${DB_PASS}
+    url: ${DB_URL}
 
-# Spring Mail 163邮箱配置
+  # Spring Mail 163邮箱配置
   mail:
     host: smtp.163.com
     port: 465
