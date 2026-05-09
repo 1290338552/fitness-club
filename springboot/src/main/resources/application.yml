@@ -9,13 +9,13 @@ aliyun:
 server:
   port: ${PORT:9999}
 
-# 数据库配置
+# 数据库配置（已替换为你的 TiDB 云数据库）
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: ${DB_USER}
-    password: ${DB_PASS}
-    url: ${DB_URL}
+    username: 49yZuNgDoBVfpvs.root
+    password: fu4iGqBRbn9SB77Z
+    url: jdbc:mysql://gateway01.ap-southeast-1.prod.aws.tidbcloud.com:4000/quan?useSSL=true&serverTimezone=UTC&allowPublicKeyRetrieval=true
 
   # Spring Mail 163邮箱配置
   mail:
@@ -56,5 +56,3 @@ alipay:
   gateway-url: https://openapi-sandbox.dl.alipaydev.com/gateway.do  # 这个是公开地址，不用改
   notify-url: ${ALIPAY_NOTIFY_URL}  # 你的公网回调地址
   return-url: ${ALIPAY_RETURN_URL}  # 支付成功后的跳转地址
-
-# 支付宝沙盒配置
