@@ -7,7 +7,7 @@ aliyun:
     template-code: 100001
 
 server:
-  port: 9999
+  port: ${PORT:9999}
 
 # 数据库配置
 spring:
