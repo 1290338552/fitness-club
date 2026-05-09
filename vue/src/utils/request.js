@@ -1,10 +1,10 @@
 import axios from "axios";
-import {ElMessage} from "element-plus";
+import { ElMessage } from "element-plus";
 import router from "@/router/index.js";
 
-// 创建axios实例（后端地址：http://localhost:9999）
+// 创建axios实例（后端地址：你的 Render 公网地址）
 const request = axios.create({
-    baseURL: "http://localhost:9999",
+    baseURL: "https://fitness-club-ti85.onrender.com",
     timeout: 30000,
 });
 
@@ -37,9 +37,9 @@ request.interceptors.response.use(
         if (res.code === '401') {
             ElMessage.error(res.msg);
             router.push('/login');
-            return Promise.reject(res.msg); // 补充返回，避免前端无响应
+            return Promise.reject(res.msg);
         } else {
-            return res; // 正常响应：返回数据
+            return res;
         }
     },
     error => {
