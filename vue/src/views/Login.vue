@@ -175,8 +175,8 @@ import { useRouter } from 'vue-router';
 
 // 表单ref动态名称（根据登录类型切换）
 const formRefName = computed(() => loginType.value === 'account' ? 'accountFormRef' : 'phoneFormRef');
-const accountFormRef = ref(null);
-const phoneFormRef = ref(null);
+const accountFormRef = ref();
+const phoneFormRef = ref();
 const formRef = computed(() => loginType.value === 'account' ? accountFormRef.value : phoneFormRef.value);
 
 const loading = ref(false); // 全局加载状态
@@ -349,7 +349,20 @@ const data = reactive({
 
 // 登录处理（保持原有接口，优化逻辑流程）
 const login = async () => {
-  formRef.value.validate(async (valid) => {
+  // 【修复 Render 报错】
+  let currentForm = null
+  if (loginType.value === 'account') {
+    currentForm = accountFormRef.value
+  } else {
+    currentForm = phoneFormRef.value
+  }
+
+  if (!currentForm) {
+    setTimeout(() => login(), 100)
+    return
+  }
+
+  currentForm.validate(async (valid) => {
     if (valid) {
       // 校验图形验证码
       if (loginType.value === 'account') {
