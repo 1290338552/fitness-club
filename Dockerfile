@@ -5,8 +5,8 @@ COPY pom.xml .
 COPY src ./src
 RUN mvn clean package -DskipTests
 
-# 运行阶段
-FROM openjdk:17-jdk-slim
+# 运行阶段（用稳定的 Temurin 镜像）
+FROM eclipse-temurin:17-jre-alpine
 WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
 EXPOSE 9999
