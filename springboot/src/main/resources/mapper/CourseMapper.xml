@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.CourseMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.entity.Course">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="description" property="description"/>
+        <result column="price" property="price"/>
+        <result column="duration" property="duration"/>
+        <result column="status" property="status"/>
+        <result column="category_id" property="categoryId"/>
+        <result column="coach_id" property="coachId"/>
+        <result column="max_participants" property="maxParticipants"/>
+        <result column="image" property="image"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="category_name" property="categoryName"/>
+        <result column="coach_name" property="coachName"/>
+        <result column="coach_position" property="coachPosition"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="com.example.entity.Course">
+        INSERT INTO course (name, description, price, duration, status, category_id, coach_id, max_participants, image)
+        VALUES (#{name}, #{description}, #{price}, #{duration}, #{status}, #{categoryId}, #{coachId}, #{maxParticipants}, #{image})
+    </insert>
+
+    <delete id="deleteById">
+        DELETE FROM course WHERE id = #{id}
+    </delete>
+
+    <update id="updateById" parameterType="com.example.entity.Course">
+        UPDATE course SET
+        name = #{name},
+        description = #{description},
+        price = #{price},
+        duration = #{duration},
+        status = #{status},
+        category_id = #{categoryId},
+        coach_id = #{coachId},
+        max_participants = #{maxParticipants},
+        image = #{image}
+        WHERE id = #{id}
+    </update>
+
+    <update id="updateStatus">
+        UPDATE course SET status = #{status} WHERE id = #{id}
+    </update>
+
+    <select id="selectById" resultMap="BaseResultMap">
+        SELECT c.*, cat.title as category_name, coach.coach as coach_name, coach.name as coach_position
+        FROM course c
+        LEFT JOIN category cat ON c.category_id = cat.id
+        LEFT JOIN coach ON c.coach_id = coach.id
+        WHERE c.id = #{id}
+    </select>
+
+    <select id="selectPage" resultMap="BaseResultMap">
+        SELECT c.*, cat.title as category_name, coach.coach as coach_name, coach.name as coach_position
+        FROM course c
+        LEFT JOIN category cat ON c.category_id = cat.id
+        LEFT JOIN coach ON c.coach_id = coach.id
+        <where>
+            <if test="name != null and name != ''">
+                AND c.name LIKE CONCAT('%', #{name}, '%')
+            </if>
+            <if test="status != null and status != ''">
+                AND c.status = #{status}
+            </if>
+            <if test="categoryId != null">
+                AND c.category_id = #{categoryId}
+            </if>
+        </where>
+        ORDER BY c.create_time DESC
+    </select>
+
+    <select id="selectActiveCourses" resultMap="BaseResultMap">
+        SELECT c.*, cat.title as category_name, coach.coach as coach_name, coach.name as coach_position
+        FROM course c
+        LEFT JOIN category cat ON c.category_id = cat.id
+        LEFT JOIN coach ON c.coach_id = coach.id
+        WHERE c.status = 'ACTIVE'
+        ORDER BY c.create_time DESC
+    </select>
+
+    <select id="selectByCoachId" resultMap="BaseResultMap">
+        SELECT c.*, cat.title as category_name, coach.coach as coach_name, coach.name as coach_position
+        FROM course c
+        LEFT JOIN category cat ON c.category_id = cat.id
+        LEFT JOIN coach ON c.coach_id = coach.id
+        WHERE c.coach_id = #{coachId}
+        ORDER BY c.create_time DESC
+    </select>
+
+    <select id="selectByCategoryId" resultMap="BaseResultMap">
+        SELECT c.*, cat.title as category_name, coach.coach as coach_name, coach.name as coach_position
+        FROM course c
+        LEFT JOIN category cat ON c.category_id = cat.id
+        LEFT JOIN coach ON c.coach_id = coach.id
+        WHERE c.category_id = #{categoryId} AND c.status = 'ACTIVE'
+        ORDER BY c.create_time DESC
+    </select>
+
+</mapper>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.RechargeMapper">
+
+    <insert id="insert">
+        INSERT INTO `recharge`(user_id, amount, type, remark, create_time)
+        VALUES (#{userId}, #{amount}, #{type}, #{remark}, NOW())
+    </insert>
+
+    <select id="selectByUserId" resultType="com.example.entity.Recharge">
+        SELECT r.*, u.name as userName
+        FROM `recharge` r
+        LEFT JOIN `user` u ON r.user_id = u.id
+        WHERE r.user_id = #{userId}
+        ORDER BY r.id DESC
+    </select>
+
+</mapper>

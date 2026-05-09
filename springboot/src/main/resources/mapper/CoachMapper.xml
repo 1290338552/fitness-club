@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.CoachMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.entity.Coach">
+        <id column="id" property="id"/>
+        <result column="img" property="img"/>
+        <result column="name" property="position"/>
+        <result column="price" property="price"/>
+        <result column="coach" property="name"/>
+        <result column="num" property="num"/>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="phone" property="phone"/>
+        <result column="email" property="email"/>
+        <result column="role" property="role"/>
+        <result column="avatar" property="avatar"/>
+    </resultMap>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        select * from `coach`
+        <where>
+            <if test="coach != null and coach != ''">and coach like concat('%',#{coach},'%')</if>
+        </where>
+        order by id desc
+    </select>
+    
+    <select id="selectById" resultMap="BaseResultMap">
+        select * from `coach` where id = #{id}
+    </select>
+    
+    <select id="selectByUsername" resultMap="BaseResultMap">
+        select * from `coach` where username = #{username}
+    </select>
+    
+    <insert id="insert">
+        insert into `coach`(img, name, price, coach, num, username, password, phone, email, role, avatar) 
+        values (#{img}, #{position}, #{price}, #{name}, #{num}, #{username}, #{password}, #{phone}, #{email}, #{role}, #{avatar})
+    </insert>
+    
+    <update id="updateById">
+        update `coach` 
+        set img=#{img}, name=#{position}, price=#{price}, coach=#{name}, num=#{num},
+            username=#{username}, password=#{password}, phone=#{phone}, email=#{email}, 
+            role=#{role}, avatar=#{avatar}
+        where id=#{id}
+    </update>
+    
+    <delete id="deleteById">
+        delete from `coach` where id = #{id}
+    </delete>
+
+</mapper>

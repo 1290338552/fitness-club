@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.ApplyMapper">
+
+    <select id="selectAll" resultType="com.example.entity.Apply">
+        select apply.*, 
+               `user`.name as userName,
+               course.name as courseName,
+               course.price as coursePrice,
+               course.duration as courseDuration,
+               coach.coach as coachName
+        from `apply`
+        left join `user` on `apply`.user_id=`user`.id
+        left join `course` on `apply`.course_id=`course`.id
+        left join `coach` on `course`.coach_id=`coach`.id
+        <where>
+            <if test="title != null and title != ''">and apply.title  like concat('%',#{title},'%')</if>
+            <if test="userId != null">and apply.user_id = #{userId} </if>
+            <if test="courseId != null">and apply.course_id = #{courseId}</if>
+            <if test="userName != null and userName != ''">and `user`.name like concat('%',#{userName},'%')</if>
+        </where>
+        order by apply.id desc
+    </select>
+    <insert id="insert">
+        insert into `apply`(title,content,time, user_id,status,reason,course_id,course_type) 
+        values(#{title},#{content},#{time},#{userId},#{status},#{reason},#{courseId},#{courseType})
+    </insert>
+    <update id="updateById">
+        update `apply` set title=#{title},content=#{content},time=#{time},user_id=#{userId},status=#{status},reason=#{reason},course_id=#{courseId},course_type=#{courseType} where id=#{id}
+    </update>
+    
+    <select id="selectById" resultType="com.example.entity.Apply">
+        select apply.*, 
+               `user`.name as userName,
+               course.name as courseName,
+               course.price as coursePrice,
+               course.duration as courseDuration,
+               coach.coach as coachName
+        from `apply`
+        left join `user` on `apply`.user_id=`user`.id
+        left join `course` on `apply`.course_id=`course`.id
+        left join `coach` on `course`.coach_id=`coach`.id
+        where apply.id = #{id}
+    </select>
+
+</mapper>

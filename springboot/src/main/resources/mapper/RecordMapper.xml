@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.RecordMapper">
+
+    <select id="selectAll" resultType="com.example.entity.Record">
+        select record.*,user.name as userName,coach.coach as coachName,coach.img as coachImg from `record`
+        left join coach on record.coach_id=coach.id
+        left join user on record.user_id=user.id
+        <where>
+            <if test="coachName != null and coachName != ''">and coach.coach  like concat('%',#{coachName},'%')</if>
+        </where>
+        order by id desc
+    </select>
+    <insert id="insert">
+        insert into `record`(user_id,coach_id,time,status,reason) values(#{userId},#{coachId},#{time},#{status},#{reason})
+    </insert>
+    <update id="updateById">
+        update `record` set user_id=#{userId},coach_id=#{coachId},time=#{time},status= #{status},reason= #{reason} where id=#{id}
+    </update>
+
+</mapper>

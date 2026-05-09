@@ -1,0 +1,12 @@
+-- 1. user 表添加余额字段
+ALTER TABLE `user` ADD COLUMN `balance` DECIMAL(10,2) NOT NULL DEFAULT 0.00 COMMENT '账户余额';
+
+-- 2. 充值记录表
+CREATE TABLE IF NOT EXISTS `recharge` (
+  `id`          INT AUTO_INCREMENT PRIMARY KEY,
+  `user_id`     INT            NOT NULL COMMENT '会员ID',
+  `amount`      DECIMAL(10,2)  NOT NULL COMMENT '充值金额',
+  `type`        VARCHAR(20)    NOT NULL DEFAULT 'RECHARGE' COMMENT 'RECHARGE充值/CONSUME消费',
+  `remark`      VARCHAR(200)   DEFAULT NULL COMMENT '备注',
+  `create_time` DATETIME       NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '时间'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

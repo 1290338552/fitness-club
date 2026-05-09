@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.LogsMapper">
+
+    <insert id="insert">
+        insert into `logs`(operation,type,ip,user,time) values(#{operation},#{type},#{ip},#{user},#{time})
+    </insert>
+
+    <select id="selectAll" resultType="com.example.entity.Logs">
+        SELECT * FROM logs
+        WHERE 1=1
+        <if test="user != null and user != ''">
+            AND user LIKE CONCAT('%', #{user}, '%')
+        </if>
+        <if test="type != null and type != ''">
+            AND type = #{type}
+        </if>
+    </select>
+
+
+
+
+</mapper>

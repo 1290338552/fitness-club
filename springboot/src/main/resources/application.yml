@@ -1,0 +1,59 @@
+# 阿里云短信配置
+aliyun:
+  sms:
+    access-key-id: LTAI5tKH2PqCun8AX2h26fbj
+    access-key-secret: ZxJE4IrGRbY6a6h50X1eiHT1F7xaAU
+    sign-name: 速通互联验证码
+    template-code: 100001
+
+server:
+  port: 9999
+
+# 数据库配置
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: root
+    url: jdbc:mysql://localhost:3306/quan?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+
+# Spring Mail 163邮箱配置
+  mail:
+    host: smtp.163.com
+    port: 465
+    username: 19978018409@163.com
+    password: PM6XgmDqPyUp7ntw
+    default-encoding: utf-8
+    properties:
+      mail:
+        smtp:
+          auth: true
+          ssl:
+            enable: true
+            trust: smtp.163.com
+          socketFactory:
+            class: javax.net.ssl.SSLSocketFactory
+            port: 465
+            fallback: false
+        debug: true
+
+mybatis:
+  ## 映射xml
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    # 配置日志
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+
+# DeepSeek AI
+deepseek:
+  api-key: sk-d00571f249374408970462c93dfd6a52
+alipay:
+  app-id: 9021000162624087
+  private-key: MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCDiQcW63GRa1mfQkVYLVm8I9aqeWFIWnlQpHpLkG92U9ku1hXoGLdMLHccg36c/MC65aPywWr/J+hKEnvR0ttYga3YYVSwBY9vH9w3bbUUDk3lI2FuOlPT6zu9oKr9AWbEcNDKWgWbYTl3oH841c1WuZf0dqPiuxL2WPoorPFoXttZ9jJtw8cT3T92Ii18VDaYFeG0FG3wTUg3lnUSjkgON44bjRQX+90gwreuMauxMsNZUFeiAsJcPhc3pOC9cVOWQMRddBTZJyu3OFNmYAhjsdb4ajQcJrtPFBJdK4X/DDpn4gGD0fSTOpa6OYLwTcdqLQBR8Y/cCuk+S77S6X5LAgMBAAECggEAZkM6h8801GIpo2/aidt4UJVsZ81GnQH6H4BAtE7u2YgG6ir3jSLqHwbS9BAnd9Xp4WR4Olu12/oi1rPYICFW91Ca4AeL1+36veJ/S3i3t4gHd4YyUYh3c+MG5z7qsRlN1JwBN9EVWuAT1bWqM33Fzw8r3JwAfl4DOBOlKcqLRSCczz9GUFm+QlUREhLVd4L5acUPemsuADcNSO3+9C82WrYqlHUYfljmy5oz2mgOxNhvJqn5j49Egp4jPNQu9HNC7XeLsfHboAmpSxcBCiYOFV9QbWydcWkE+gmPZkROBLEu28IDnQc/wOpn2r03Hj626u2nbIORZX1AlP92NIKnwQKBgQC+mbIoRii/50Qf+2vu+z1UnOatiBe73YLFWs4v0jivO6lPTewk0Kk+YTVvBXkco3WNMqZUTEiT5OMw4PSL29Vx+a0/4y64CirZVtNNuKWH2S2qnw557Uhq7KiITJjXxXYT/QkFH9l8Wl2BR5d+T0O60p6g6TQ2APZ/yciXySD/5QKBgQCwqxAKPKrU3sO2VZey0N+mjLJkm+p8PFO1To6XeoulZM0p44lQxgyyGXZgJlmSpYStflz/tar3q+BRFLEoGekZMn1x3ChGFsl4A91su2Y2ce4jM3g1/h62yQEYt3FWb0pnyhB/eGAG/isjVEz074zlrOBl8zIBqc7N7ji8bAPCbwKBgQCYeEbGZOlwKkaa9vtun1h+eU0nADlMNXTI/0z1gEuMEkPshr8i7DCXEBg4ib5KpJACtcPMp4FfnbgIf8vgnajvlfV7p/bVjnychBJgmBcCxz76wGZKLwDBWDOxZOTXpsRAVSiECuhly7wFEQolJq9doeL3gdYcZUTLENYAZgqZ6QKBgGEK5fmpj3D0mG6sn3Ji16clu8wV9PyfKp/58ct1TgXg0+2BhejvkQO3htWT2zn5X2LpeW4gvTPknogLJLDRYsArgsqrUxgE5k/dV6ClY6Teeh+t4wdNelOPH+ISydffs/BFB0Dtv1m3/bwfT1Jvz2ZNyslViA9v1iA6DcI6VupTAoGAaJ8+83oqNdOXlfMtuepcYFB4OUcUdjuLPFbx8ulp7GhmD8vqPDgnd8szBS84+0rMOix0o2juFdJw/TG4joM5bjRUnZ03ReX6+8GiSCLV3aXDVLiuquqW7VqDJCpIzzv1Iy68lJF6H0lLu7Hc4ij/o1azRu9aOscFg+E2OzjaVm4=
+  alipay-public-key: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAisueTnC5KE42rCWepwRUQQmYAuKQWc6XoCxsdKYoUR3Hp5JCiev1WbMJ/M+14yUDhbtbMdIDmS0rf1fwQt7bCFa5/v0nNk9sttVbzhamt4L4ToyJvhqHJP/sv8HF5VA4mhLSXaZp4moB1u+wkbQ+m86Ous9jCDRXivi2yaK4155t4W0MAUacB93H1lLg5VhWFj4/3JBPuIHQuTEZnWtN7PrZzKnMoxfZsePpBItjz7nAbccZskDED6V85lauf4f+AjjKOSbyxedlmxk10yMfgJxJuxWOFrDJZug/txdhJU4KmSDCTV/JrTybSbL1yiHILdzhZIqgO2ZAO6FXV7jhowIDAQAB
+  gateway-url: https://openapi-sandbox.dl.alipaydev.com/gateway.do
+  notify-url: http://k7966f9f.natappfree.cc/pay/notify
+  return-url: http://localhost:5173/manager/balance
+
+# 支付宝沙盒配置
