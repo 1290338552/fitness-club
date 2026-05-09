@@ -4,7 +4,7 @@ import router from "@/router/index.js";
 
 // 创建axios实例（后端地址：你的 Render 公网地址）
 const request = axios.create({
-    baseURL: "https://fitness-club-ti85.onrender.com",
+    baseURL: "https://fitness-club-springboot.onrender.com",
     timeout: 30000,
 });
 
